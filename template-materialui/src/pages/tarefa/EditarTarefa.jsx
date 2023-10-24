@@ -8,6 +8,9 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+import { ToastContainer } from 'react-toastify';
+import { Notify } from '../../components'
+
 
 //Declaração do componente EditarTarefa, recebendo como props, do Componente ListarTarefa, os states handCloseEditar,
 // idTarefaSelecionada, tarefas, tarefa e setTarefas
@@ -61,14 +64,16 @@ const EditarTarefa = ({handleCloseEditar, idTarefaSelecionada, tarefas, tarefa, 
 
         return obj;
       }),
-    );
-
-    //console.log(`Tarefas Editadas: ` + JSON.stringify(tarefas));
-    handleCloseEditar();
+      );
+      
+      //console.log(`Tarefas Editadas: ` + JSON.stringify(tarefas));
+      handleCloseEditar();
+      Notify("success", "Editado com sucesso")
   };
 
   return(
     <Grid container spacing={2}>
+      <ToastContainer/>
       <Card sx={style}>
         <CardHeader
           title="Tarefas"

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { FormControl, InputLabel, Input, FormHelperText } from '@mui/material';
+import 'react-toastify/dist/ReactToastify.css';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
@@ -8,6 +9,9 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
+import { ToastContainer } from 'react-toastify';
+import { Notify } from '../../components'
+
 
 //Declaração do componente CriarTarefa, recebendo como props, do Componente ListarTarefa, os states handClose, tarefas e setTarefas
 const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
@@ -18,7 +22,8 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
   const [fimTarefa, setFimTarefa] = useState('');
   const [recursoTarefa, setRecursoTarefa] = useState('');
   const [statusTarefa, setStatusTarefa] = useState('');
-  
+
+
   useEffect(() => {
     //Abaixo uma variável é declarada para armazenar o id da tarefa, somando 1 ao maior id existente atualmente no state Tarefas
     let proximoId = Math.max(...tarefas.map(tarefa => tarefa.idTarefa)) + 1;
@@ -37,7 +42,7 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
     //Para inspecionarmos nosso código, uma boa estratégia é utilizarmos o console.log.
     //  Com o console.log, podemos visualizar o seu conteúdo na aba Console, no inspecionador de elementos, na janela do navegador
     console.log(`id: ${idTarefa} \n titulo: ${tituloTarefa} \n descrição: ${descricaoTarefa} \n inicio: ${inicioTarefa} \n fim: ${fimTarefa} \n recurso: ${recursoTarefa} \n status: ${statusTarefa}`);
-
+    
     setTarefas(
       [...tarefas, 
         {
@@ -50,11 +55,14 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
           statusTarefa
         }
       ]);
-    //console.log(`Tarefas: ` + JSON.stringify(tarefas));
-    handleClose();
+      //console.log(`Tarefas: ` + JSON.stringify(tarefas));
+      handleClose();
+      Notify('success', 'Ativado com sucesso');
   };
 
   return(
+    <>
+      <ToastContainer/>
     <Grid container spacing={2}>
       <Card sx={style}>
         <CardHeader
@@ -154,6 +162,7 @@ const CriarTarefa = ({handleClose, tarefas, setTarefas}) =>{
         </CardContent>
       </Card>
     </Grid>
+    </>
   );
 }
 
